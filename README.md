@@ -7,5 +7,5 @@ Setup script for Ubuntu 22.04+
 
 ## Usage
 ```
-curl -sL https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/setup.sh | sudo bash
+curl -sL https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/ubuntu_setup.sh | sudo bash
 ```
