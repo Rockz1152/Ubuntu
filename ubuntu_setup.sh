@@ -1,17 +1,13 @@
 #!/bin/bash
-
-### Work in progress ###
-# Make sure curl is isntalled before trying to run script
-# sudo apt install -y curl
-# curl -sL https://gist.githubusercontent.com/Rockz1152/71d20c66e25979e15dcd608289ecf03f/raw/ubuntu_setup.sh | /bin/bash -s
+## curl -sL https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/ubuntu_setup.sh | /bin/bash -s
 
 function checkOS() {
     echo "Checking OS"
-    if [[ -e /etc/debian_version ]]; then
+    if [[ -e /etc/lsb_release ]]; then
         source /etc/os-release
-        if [[ ${ID} == "debian" || ${ID} == "raspbian" ]]; then
-            if [[ ${VERSION_ID} -lt 9 ]]; then
-                echo "Your version of Debian (${VERSION_ID}) is not supported. Please use Debian 9 Stretch or later."
+        if [[ ${ID} == "ubuntu" ]]; then
+            if [[ ${VERSION_ID} -lt 22 ]]; then
+                echo "Your version of Ubuntu (${VERSION_ID}) is not supported. Please use Ubuntu 22.04 Jammy Jellyfish or newer."
                 exit 1
             fi
         fi
