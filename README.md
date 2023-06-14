@@ -2,8 +2,12 @@
 Setup script for Ubuntu 22.04+
 
 ## Summary
-
+- Turns off SSH MotD
+- Disables Ubuntu Pro notifications
+- Removes unwanted packages
 - Runs apt update
+- Installs base software
+- Installs guest tools if running a virtual machine
 
 ## Usage
 ```
