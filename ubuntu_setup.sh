@@ -1,20 +1,22 @@
 #!/bin/bash
 
-## Setup Script for Ubuntu 22.04+
+## Setup Script for Ubuntu 20.04+
 ## https://github.com/Rockz1152/Ubuntu
 ## curl -sL https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/ubuntu_setup.sh | sudo /bin/bash
 
 function checkOS() {
+    echo ""
     echo "Checking OS"
     if [ "$(lsb_release -is)" == "Ubuntu" ]; then
         version=$(lsb_release -sr)
-        if (( $(echo "$version < 22.04" | bc -l) )); then
-            echo "-Your version of Ubuntu ($version) is not supported."
-            echo "-Please use Ubuntu 22.04 Jammy Jellyfish or newer."
+        supported="20.04"
+        if [[ $(awk "BEGIN {print (${version} < ${supported})}") == 1 ]]; then
+            echo "- Your version of Ubuntu ($version) is not supported."
+            echo "- Please use Ubuntu 20.04 Focal Fossa or newer."
             exit 1
         fi
     else
-        echo "-Looks like you're running this script on an unsupported system."
+        echo "- Looks like you're running this script on an unsupported system."
         exit 1
     fi
 }
@@ -53,11 +55,11 @@ function removePackages() {
 function installUpdates() {
     echo "Upgrading packages"
     export DEBIAN_FRONTEND=noninteractive
-    echo '-Running apt-update'
+    echo '- Running apt-update'
     apt-get -q update > /dev/null 2>/dev/null
-    echo '-Running apt-upgrade'
+    echo '- Running apt-upgrade'
     apt-get -q -y dist-upgrade > /dev/null 2>/dev/null
-    echo '-Running autoremove'
+    echo '- Running autoremove'
     apt-get -q -y autoremove --purge > /dev/null 2>/dev/null
 }
 
@@ -86,7 +88,7 @@ function installPackages() {
     # Install software
     for i in "${packages[@]}"
     do
-        echo "-$i"
+        echo "- $i"
         if [[ $(dpkg-query -W -f='${Status}' "$i" 2>/dev/null | grep -c "ok installed") == 0 ]]; then
             apt-get -q -y install "$i" > /dev/null 2>/dev/null
             # Verify install
