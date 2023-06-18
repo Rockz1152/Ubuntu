@@ -1,5 +1,5 @@
 # Ubuntu
-Setup script for Ubuntu 22.04+
+Setup script for Ubuntu 20.04+
 
 ## Summary
 - Turns off SSH MotD
