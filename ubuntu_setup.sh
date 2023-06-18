@@ -68,6 +68,7 @@ function installPackages() {
     export DEBIAN_FRONTEND=noninteractive
     packages=(
     'ncdu'
+    'zstd'
     'zip'
     'unzip'
     'p7zip-full'
