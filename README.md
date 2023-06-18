@@ -1,5 +1,7 @@
 # Ubuntu
-Setup script for Ubuntu 20.04+
+Setup script for Ubuntu Server with support for:
+- 22.04 - Jammy Jellyfish
+- 20.04 - Focal Fossa
 
 ## Summary
 - Turns off SSH MotD
