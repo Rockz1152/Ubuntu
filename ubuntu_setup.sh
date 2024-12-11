@@ -42,8 +42,8 @@ function disablePRO() {
     echo "Disabling Ubuntu Pro"
     if [ -f /etc/apt/apt.conf.d/20apt-esm-hook.conf ]; then
         dpkg-divert --divert /etc/apt/apt.conf.d/20apt-esm-hook.conf.bak --rename --local /etc/apt/apt.conf.d/20apt-esm-hook.conf > /dev/null 2>/dev/null
-        touch /etc/apt/apt.conf.d/20apt-esm-hook.conf
-        chattr +i /etc/apt/apt.conf.d/20apt-esm-hook.conf
+        echo -n > /etc/apt/apt.conf.d/20apt-esm-hook.conf > /dev/null 2>/dev/null
+        chattr +i /etc/apt/apt.conf.d/20apt-esm-hook.conf > /dev/null 2>/dev/null
     fi
 }
 
