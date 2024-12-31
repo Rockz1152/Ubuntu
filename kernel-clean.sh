@@ -3,6 +3,7 @@
 ## https://github.com/Rockz1152/Ubuntu
 ## This script identifies and removes unused Linux kernel packages while ensuring that the 
 ## current running kernel and essential generic packages are preserved.
+## List installed kernel files: dpkg --list | egrep -i --color 'linux-image|linux-headers|linux-modules'
 
 # Get the current running kernel version
 current_kernel=$(uname -r)
