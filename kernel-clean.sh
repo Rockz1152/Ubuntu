@@ -54,7 +54,6 @@ sudo apt-get remove --purge -y "${unused_kernels[@]}"
 # Clean up residual files
 echo "Cleaning up..."
 sudo apt-get autoremove -y
-sudo apt-get autoclean
 
 # Update GRUB bootloader
 echo "Updating Grub..."
