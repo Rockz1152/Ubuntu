@@ -18,5 +18,5 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/u
 
 ## Kernel Cleanup Script
 ```
-bash -c "$(wget -qLO -https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/kernel-clean.sh)"
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/kernel-clean.sh)"
 ```
