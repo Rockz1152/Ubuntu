@@ -8,7 +8,7 @@
 ## dpkg --list | egrep -i --color 'linux-image|linux-headers|linux-modules'
 ##
 ## Run command:
-## bash -c "$(wget -qLO - https://raw.githubusercontent.com/Rockz1152/Ubuntu/refs/heads/main/kernel-clean.sh)"
+## bash -c "$(wget -qLO - https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/kernel-clean.sh)"
 
 # Get the current running kernel version
 current_kernel=$(uname -r)
