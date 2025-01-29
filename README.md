@@ -13,5 +13,10 @@ Setup script for Ubuntu Server with support for:
 
 ## Usage
 ```
-curl -sL https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/ubuntu_setup.sh | sudo bash
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/ubuntu_setup.sh)"
+```
+
+## Kernel Cleanup Script
+```
+bash -c "$(wget -qLO -https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/kernel-clean.sh)"
 ```
