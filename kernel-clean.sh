@@ -10,6 +10,12 @@
 ## Run command:
 ## bash -c "$(wget -qLO - https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/kernel-clean.sh)"
 
+# Check if reboot is required
+if [ -f /var/run/reboot-required ]; then
+  echo "Unable to continue. A system restart is required."
+  exit 1
+fi
+
 # Get the current running kernel version
 current_kernel=$(uname -r)
 
