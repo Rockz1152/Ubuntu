@@ -1,18 +1,26 @@
 #!/bin/bash
 
-## Setup Script for Ubuntu 20.04+
+## Setup Script for Ubuntu 22.04+
 ## https://github.com/Rockz1152/Ubuntu
 ## curl -sL https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/ubuntu_setup.sh | sudo /bin/bash
+
+# Source our OS related variables
+if [ -r /etc/os-release ]; then
+    source /etc/os-release
+    # Convert release to integer
+    version_num=${VERSION_ID/./}
+else
+    echo "Unknown configuration found, exiting..."; exit 1;
+fi
 
 function checkOS() {
     echo ""
     echo "Checking OS"
-    if [ "$(lsb_release -is)" == "Ubuntu" ]; then
-        version=$(lsb_release -sr)
-        supported="20.04"
-        if [[ $(awk "BEGIN {print (${version} < ${supported})}") == 1 ]]; then
-            echo "- Your version of Ubuntu ($version) is not supported."
-            echo "- Please use Ubuntu 20.04 Focal Fossa or newer."
+    if [ ${NAME} == "Ubuntu" ]; then
+        supported="22.04"
+        if [[ $(awk "BEGIN {print (${VERSION_ID} < ${supported})}") == 1 ]]; then
+            echo "- Your version of Ubuntu ${VERSION_ID} is not supported."
+            echo "- Please use Ubuntu 22.04 Jammy Jellyfish or newer."
             exit 1
         fi
     else
@@ -42,7 +50,7 @@ function disablePRO() {
     echo "Disabling Ubuntu Pro"
     if [ -f /etc/apt/apt.conf.d/20apt-esm-hook.conf ]; then
         dpkg-divert --divert /etc/apt/apt.conf.d/20apt-esm-hook.conf.bak --rename --local /etc/apt/apt.conf.d/20apt-esm-hook.conf > /dev/null 2>/dev/null
-        echo -n > /etc/apt/apt.conf.d/20apt-esm-hook.conf > /dev/null 2>/dev/null
+        echo -n | sudo tee /etc/apt/apt.conf.d/20apt-esm-hook.conf > /dev/null 2>/dev/null
         chattr +i /etc/apt/apt.conf.d/20apt-esm-hook.conf > /dev/null 2>/dev/null
     fi
 }
@@ -73,10 +81,22 @@ function installPackages() {
     'zstd'
     'zip'
     'unzip'
-    'p7zip-full'
     'unrar-free'
-    'neofetch'
     )
+
+    # 7zip
+    if [[ $version_num -lt "2604" ]]; then
+        packages+=('p7zip-full')
+    else
+        packages+=('7zip')
+    fi
+
+    # Neofetch/Fastfetch
+    if [[ $version_num -lt "2604" ]]; then
+        packages+=('neofetch')
+    else
+        packages+=('fastfetch')
+    fi
 
     # Check for VMware
     if [ $(systemd-detect-virt) == "vmware" ]; then
@@ -100,6 +120,30 @@ function installPackages() {
             fi
         fi
     done
+
+    # Swap Neofetch for Fastfetch
+    if [[ $version_num -ge "2604" ]]; then
+
+        # Neofetch install check
+        if dpkg -s neofetch >/dev/null 2>&1; then
+            echo 'Patching Neofetch to Fastfetch'
+            # Remove Neofetch and dependencies
+            apt-get autoremove -y --purge neofetch > /dev/null 2>/dev/null
+        fi
+
+        # Make sure Fastfetch is installed
+        if ! dpkg -s fastfetch >/dev/null 2>&1; then
+            apt-get -q -y install fastfetch > /dev/null 2>/dev/null
+        fi
+
+        # Link Neofetch muscle memory to Fastfetch
+        # Checks if symlink exists and creates if not
+        if ! [ -L /usr/bin/neofetch ]; then
+            ln -s /usr/bin/fastfetch /usr/bin/neofetch
+        fi
+
+    fi #End Neofetch swap
+
 }
 
 function checkReboot() {
