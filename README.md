@@ -1,7 +1,8 @@
 # Ubuntu
 Setup script for Ubuntu Server with support for:
+- 26.04 - Resolute Raccoon
+- 24.04 - Noble Numbat
 - 22.04 - Jammy Jellyfish
-- 20.04 - Focal Fossa
 
 ## Summary
 - Turns off SSH MotD
