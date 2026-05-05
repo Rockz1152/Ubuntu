@@ -58,7 +58,7 @@ function disablePRO() {
 function removePackages() {
     echo "Removing unwanted packages"
     export DEBIAN_FRONTEND=noninteractive
-    apt-get -q -y autoremove --purge cloud-init multipath-tools snapd landscape-common > /dev/null 2>/dev/null
+    apt-get -q -y autoremove --purge cloud-init snapd landscape-common > /dev/null 2>/dev/null
     rm -rf /etc/cloud
 }
 
