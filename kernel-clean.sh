@@ -10,6 +10,25 @@
 ## Run command:
 ## bash -c "$(wget -qLO - https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/kernel-clean.sh)"
 
+# Source our OS related variables
+if [ -r /etc/os-release ]; then
+    source /etc/os-release
+else
+    echo "Unknown configuration found, exiting..."
+    exit 1
+fi
+
+# Check OS
+echo ""
+echo -n "Checking OS..."
+if [ "${NAME}" != "Ubuntu" ]; then
+    echo "Failed"
+    echo "- Looks like you're running this script on an unsupported system."
+    exit 1
+else
+    echo "Ok"
+fi
+
 # Check if reboot is required
 if [ -f /var/run/reboot-required ]; then
   echo "Unable to continue. A system restart is required."
