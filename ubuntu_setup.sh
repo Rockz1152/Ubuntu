@@ -2,7 +2,7 @@
 
 ## Setup Script for Ubuntu 22.04+
 ## https://github.com/Rockz1152/Ubuntu
-## curl -sL https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/ubuntu_setup.sh | sudo /bin/bash
+## curl -fsSL https://raw.githubusercontent.com/Rockz1152/Ubuntu/main/ubuntu_setup.sh | sudo bash
 
 # Source our OS related variables
 if [ -r /etc/os-release ]; then
