@@ -146,6 +146,13 @@ function installPackages() {
 
 }
 
+function configBash() {
+    echo 'Configuring Bash'
+cat > /etc/profile.d/00-aliases.sh << EOF
+export NCURSES_NO_UTF8_ACS=1
+EOF
+}
+
 function checkReboot() {
     echo ""
     echo "Done"
@@ -162,4 +169,5 @@ disablePRO
 removePackages
 installUpdates
 installPackages
+configBash
 checkReboot
